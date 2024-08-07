@@ -52,7 +52,9 @@ app.use((req,res,next)=>{
 
 //include route files
 const home = require("./routes/home/index");
+const admin = require("./routes/admin/index");
 app.use("/",home);
+app.use("/admin",admin);
 
 const port = process.env.PORT || 9112;
 app.listen(port,() => {

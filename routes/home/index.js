@@ -5,6 +5,11 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
+router.all("/*",(req, res, next)=>{
+    req.app.locals.layout = "home";
+    next();
+})
+
 router.get("/",(req,res)=>{
     res.render("home/index");
 });
