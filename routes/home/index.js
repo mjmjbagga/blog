@@ -9,6 +9,9 @@ router.get("/",(req,res)=>{
     res.render("home/index");
 });
 
+router.get("/post/:slug",(req,res)=>{
+    res.render("home/post");
+});
 router.get("/login",(req,res)=>{
     res.render("home/login");
 });
