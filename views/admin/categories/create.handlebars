@@ -1,0 +1,14 @@
+<h1>Create Category</h1>
+
+{{#each errors}}
+    <div class="alert alert-danger">{{message}}</div>
+{{/each}}
+
+<form action="/admin/categories/create" method="post">
+    <div class="form-group">
+        <label for="title">Name</label>
+        <input name="name" type="text" class="form-control" id="name" placeholder="Enter name" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Category</button>
+</form>

@@ -1,0 +1,24 @@
+<h1>All Categories</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>Date</th>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each categories}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>{{generateTime date 'MMMM Do YYYY'}}</td>
+            <td><a href="/admin/categories/edit/{{id}}">Edit</a></td>
+            <td><a href="/admin/categories/{{id}}">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

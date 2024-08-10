@@ -7,6 +7,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                <a class="nav-link" href="/">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Home</span>
+                </a>
+            </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                 <a class="nav-link" href="/admin">
                     <i class="fa fa-fw fa-dashboard"></i>
@@ -25,7 +31,7 @@
                         <a href="/admin/categories">List</a>
                     </li>
                     <li>
-                        <a href="/admin/category/create">Create New</a>
+                        <a href="/admin/categories/create">Create New</a>
                     </li>
                 </ul>
             </li>
@@ -152,8 +158,8 @@
                 </form>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                <a class="nav-link" href="/logout">
+                    <i class="fa fa-user"></i>{{#if user}} {{user.firstName}} {{/if}}<i class="fa fa-fw fa-sign-out"></i>Logout</a>
             </li>
         </ul>
     </div>

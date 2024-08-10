@@ -17,10 +17,12 @@
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-    <!-- Navigation-->
+    <!-- Navigation-->    
+
     {{> admin/sidebar}}
     <div class="content-wrapper">
         <div class="container-fluid">
+            {{> home/form-msgs}}
             {{{body}}}
         </div>
         <!-- /.container-fluid-->
