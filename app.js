@@ -7,6 +7,7 @@ const {engine} = require("express-handlebars");
 const {allowInsecurePrototypeAccess} = require("@handlebars/allow-prototype-access");
 const Handlebars = require("handlebars");
 const methodOverride = require("method-override");
+const upload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -22,10 +23,13 @@ mongoose.connect(mongoDbUrl).then(dbConnected=>{
 //with this,we can use static files from public folder
 app.use(express.static(path.join(__dirname,'public')));
 
-const {generateTime} = require("./helpers/handlebars-helpers");
+const {generateTime, select} = require("./helpers/handlebars-helpers");
 //set template engine: if you do not set this then design implementation via handlebars will not work
-app.engine("handlebars",engine({handlebars: allowInsecurePrototypeAccess(Handlebars), defaultLayout: 'home', helpers:{generateTime:generateTime}}));
+app.engine("handlebars",engine({handlebars: allowInsecurePrototypeAccess(Handlebars), defaultLayout: 'home', helpers:{generateTime:generateTime, select:select}}));
 app.set('view engine', 'handlebars');
+
+//Upload Middleware
+app.use(upload());
 
 //body parser: u will get data in req.body with this
 app.use(bodyParser.urlencoded({extended: true}));
@@ -58,9 +62,11 @@ app.use((req,res,next)=>{
 const home = require("./routes/home/index");
 const admin = require("./routes/admin/index");
 const categories = require("./routes/admin/categories");
+const posts = require("./routes/admin/posts");
 app.use("/",home);
 app.use("/admin",admin);
 app.use("/admin/categories",categories);
+app.use("/admin/posts",posts);
 
 const port = process.env.PORT || 9112;
 app.listen(port,() => {
