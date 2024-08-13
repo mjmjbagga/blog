@@ -23,9 +23,9 @@ mongoose.connect(mongoDbUrl).then(dbConnected=>{
 //with this,we can use static files from public folder
 app.use(express.static(path.join(__dirname,'public')));
 
-const {generateTime, select} = require("./helpers/handlebars-helpers");
+const {generateTime, select, paginate} = require("./helpers/handlebars-helpers");
 //set template engine: if you do not set this then design implementation via handlebars will not work
-app.engine("handlebars",engine({handlebars: allowInsecurePrototypeAccess(Handlebars), defaultLayout: 'home', helpers:{generateTime:generateTime, select:select}}));
+app.engine("handlebars",engine({handlebars: allowInsecurePrototypeAccess(Handlebars), defaultLayout: 'home', helpers:{generateTime:generateTime, select:select, paginate:paginate}}));
 app.set('view engine', 'handlebars');
 
 //Upload Middleware

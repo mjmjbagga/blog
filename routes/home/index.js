@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../../models/User");
+const Post = require('../../models/Post');
+const Category = require('../../models/Category');
+const User = require('../../models/User');
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local").Strategy;
 
 router.all("/*",(req, res, next)=>{
     req.app.locals.layout = "home";
@@ -11,11 +13,31 @@ router.all("/*",(req, res, next)=>{
 })
 
 router.get("/",(req,res)=>{
-    res.render("home/index");
+
+    const perPage = 2;
+    const page = req.query.page || 1;
+
+    Post.find({}).populate({path:'user', model:'users'}).skip((perPage * page) - perPage).limit(perPage).then(posts => {
+
+        Post.countDocuments().then(postCount => {
+            Category.find({}).then(categories => {
+                res.render("home/index", {posts: posts, categories: categories, current:parseInt(page), pages: Math.ceil(postCount/perPage)});
+            });
+        });        
+    }).catch(err => {
+        res.send("Err:"+err);
+    });
+    
 });
 
 router.get("/post/:slug",(req,res)=>{
-    res.render("home/post");
+    Post.findOne({slug:req.params.slug}).populate({path:'user', model:'users'}).then(post=>{
+        Category.find({}).then(categories => {
+            res.render("home/post", {post: post, categories: categories});
+        });
+    }).catch(err => {
+        res.send("Err:"+err);
+    });
 });
 router.get("/logout",(req,res, next)=>{
     req.logout((err) => {
